@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BlackBox Terminal</title>
+
+<style>
+body {
+    margin: 0;
+    background: #000;
+    color: #00ff88;
+    font-family: monospace;
+}
+
+#terminal {
+    padding: 20px;
+    height: 80vh;
+    overflow-y: auto;
+    border-bottom: 1px solid #00ff88;
+}
+
+.input-area {
+    padding: 10px;
+}
+
+input {
+    background: black;
+    border: none;
+    color: #00ff88;
+    font-family: monospace;
+    font-size: 16px;
+    outline: none;
+    width: 90%;
+}
+
+.line {
+    margin: 5px 0;
+}
+
+button {
+    background: black;
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: monospace;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #00ff88;
+    color: black;
+}
+</style>
+</head>
+
+<body>
+
+<div id="terminal">
+    <div class="line">> BlackBox Terminal v2.0</div>
+    <div class="line">> boot_sequence.init()</div>
+    <div class="line">> establishing secure tunnel...</div>
+    <div class="line">> anomaly detected in /var/log/auth.log</div>
+    <div class="line">> hint: surface ≠ truth</div>
+    <div class="line">> Type 'help' to begin</div>
+</div>
+
+<div class="input-area">
+    <span>> </span><input id="command" autofocus>
+</div>
+
+<div style="text-align:center;">
+    <button onclick="openLink()">Access Hidden Resource</button>
+</div>
+
+<script>
+const terminal = document.getElementById("terminal");
+const input = document.getElementById("command");
+
+function print(text) {
+    const line = document.createElement("div");
+    line.className = "line";
+    line.innerText = text;
+    terminal.appendChild(line);
+    terminal.scrollTop = terminal.scrollHeight;
+}
+
+input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        const cmd = input.value.trim().toLowerCase();
+        print("> " + cmd);
+        handleCommand(cmd);
+        input.value = "";
+    }
+});
+
+function handleCommand(cmd) {
+
+    if (cmd === "help") {
+        print("Commands:");
+        print("Critical Response Yielded Partial Token Output");
+    }
+
+    else if (cmd === "ls") {
+        print("log.txt  secret.enc  readme.md");
+    }
+
+    else if (cmd === "readme.md") {
+        print("System compromised.");
+        print("Clues are hidden in layers.");
+    }
+
+    else if (cmd === "log.txt") {
+        print("Access attempt detected...");
+        print("user: unknown");
+        print("hint: inspect deeper");
+    }
+
+    else if (cmd === "scan") {
+        print("Scanning...");
+        print("Hidden file detected: .shadow");
+    }
+
+    else if (cmd === ".shadow") {
+        print("Encrypted string:");
+        print("U0VDUkVU");
+    }
+
+    else if (cmd === "decode") {
+        print("Hint: Base64 decoding required.");
+    }
+
+    else if (cmd === "clear") {
+        terminal.innerHTML = "";
+    }
+
+    else if (cmd === "secret") {
+        print("FLAG{terminal_master}");
+    }
+
+    else {
+        print("Command not recognized.");
+    }
+}
+
+function openLink() {
+    print("> Opening secure channel...");
+    print("> Access granted");
+
+    terminal.innerHTML += `
+        <div class='line'>-----------------------------</div>
+        <div class='line'>Hidden Resource Loaded</div>
+        Encoded Clue: 
+    <a href="https://drive.google.com/file/d/1N1WdClbHG0u71Lj1_n-qOARn9uCSQgP_/view?usp=sharing" 
+       target="_blank" 
+       style="color:#00ff88; text-decoration:underline;">
+       CLICK HERE
+    </a>
+    `;
+
+    terminal.scrollTop = terminal.scrollHeight;
+
+    // Change button text after click
+    document.querySelector("button").innerText = "Resource Accessed";
+}
+</script>
+
+</body>
+</html>
